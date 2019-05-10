@@ -34,3 +34,8 @@ case $OS in
     
 #   fi
 # fi
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+cd
+mv .zshrc .zshrc.ORIG
+wget https://gist.githubusercontent.com/arbal/56d1e86afdbbc55a6b489d6e0799df87/raw/512f7d2ed800fc645bb34a46f02abbd54d393aae/.zshrc
