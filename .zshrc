@@ -1,5 +1,5 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export GOPATH=$HOME/go
+export PATH=$HOME/bin:/usr/local/bin:$GOPATH:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -27,7 +27,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -39,7 +39,7 @@ ZSH_THEME="robbyrussell"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -96,6 +96,10 @@ alias sz="source ~/.zshrc"
 
 alias zshrc="edit ~/.zshrc"
 alias sshconfig="edit ~/.ssh/config"
+
+historytop() {
+  history | awk '{a[$2]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head "-$1"
+}
 
 alias hg="history | grep -i"
 alias eg="env | grep -i"
