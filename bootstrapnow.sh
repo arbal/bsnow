@@ -35,10 +35,12 @@ case $OS in
 #   fi
 # fi
 
-cp .zshrc ~/.zshrc.bsnow
+cp "./.zshrc" "~/.zshrc.bsnow"
+
+cd
 
 zsh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-cd
+
 mv .zshrc .zshrc.ORIG
 cp .zshrc.bsnow .zshrc
 #wget https://gist.githubusercontent.com/arbal/56d1e86afdbbc55a6b489d6e0799df87/raw/512f7d2ed800fc645bb34a46f02abbd54d393aae/.zshrc
