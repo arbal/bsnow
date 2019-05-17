@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
-source ./shootProfile.sh
+#source ./shootProfile.sh
 
-shootProfile
+#shootProfile
 
 # Detect the platform (similar to $OSTYPE)
 OS="`uname`"
