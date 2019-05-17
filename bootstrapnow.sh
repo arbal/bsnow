@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 source ./shootProfile.sh
 
@@ -35,7 +35,13 @@ case $OS in
 #   fi
 # fi
 
+cp .zshrc ~/.zshrc.bsnow
+
 zsh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 cd
 mv .zshrc .zshrc.ORIG
-wget https://gist.githubusercontent.com/arbal/56d1e86afdbbc55a6b489d6e0799df87/raw/512f7d2ed800fc645bb34a46f02abbd54d393aae/.zshrc
+cp .zshrc.bsnow .zshrc
+#wget https://gist.githubusercontent.com/arbal/56d1e86afdbbc55a6b489d6e0799df87/raw/512f7d2ed800fc645bb34a46f02abbd54d393aae/.zshrc
+
+curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh
+echo "source ~/.iterm2_shell_integration.zsh" >> ~.zshrc
