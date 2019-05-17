@@ -2,7 +2,7 @@
 
 source ./shootProfile.sh
 
-shootProfile.sh
+shootProfile
 
 # Detect the platform (similar to $OSTYPE)
 OS="`uname`"
