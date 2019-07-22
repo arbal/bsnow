@@ -47,3 +47,6 @@ cp .zshrc.bsnow .zshrc
 
 curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh
 echo "source ~/.iterm2_shell_integration.zsh" >> ~.zshrc
+
+sudo wget -O /usr/local/bin/rmate https://raw.githubusercontent.com/aurora/rmate/master/rmate
+sudo chmod a+x /usr/local/bin/rmate
