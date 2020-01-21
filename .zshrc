@@ -1,5 +1,7 @@
-export GOPATH=$HOME/go
-export PATH=$HOME/bin:/usr/local/bin:$GOPATH:$PATH
+#!/usr/bin/env bash
+
+export HOME_BIN=$HOME/bin
+export PATH=$HOME_BIN:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -8,7 +10,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
+export ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -21,13 +24,13 @@ ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=3
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -62,7 +65,32 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git npm sudo zsh-autosuggestions zsh-syntax-highlighting)
+
+# Prompt
+#export PS1="$(context-color -p)$PS1\[\e[0m\]"
+export PROMPT="%{$fg[white]%}%n@%{$fg[green]%}%m%{$reset_color%} ${PROMPT}"
+
+# Networking
+export NET_LOCAL="localhost"
+export NET_SELF="$(hostname)"
+
+# User configuration
+# If command execution time above min. time, plugins will not output time.
+export ZSH_COMMAND_TIME_MIN_SECONDS=3
+
+# Set it to "" for disable echo `time: xx`.
+export ZSH_COMMAND_TIME_ECHO=1
+
+# Touchbar Iterm integration
+export TOUCHBAR_GIT_ENABLED=true
+
+export GIT_UNCOMMITTED="+"
+export GIT_UNSTAGED="!"
+export GIT_UNTRACKED="?"
+export GIT_STASHED="$"
+export GIT_UNPULLED="⇣"
+export GIT_UNPUSHED="⇡"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -75,13 +103,31 @@ export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nano'
+  export EDITOR='micro'
 else
-  export EDITOR='nano'
+  export EDITOR='micro'
 fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
+
+
+# shellcheck source=/Users/rob/.iterm2_shell_integration.zsh
+test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"
+
+# shellcheck source=/usr/local/etc/profile.d/autojump.sh
+[ -f "/usr/local/etc/profile.d/autojump.sh" ] && source "/usr/local/etc/profile.d/autojump.sh"
+
+# Lastpass CLI
+export LPASS_AGENT_TIMEOUT=0
+
+alias config='/usr/bin/git --git-dir="$HOME/.cfg/" --work-tree="$HOME"'
+
+[[ -s "/usr/local/etc/grc.zsh" ]] && source "/usr/local/etc/grc.zsh"
+
+export GOROOT="/usr/local/go"
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -133,4 +179,24 @@ alias npmupg="npm update -g"
 alias apti="apt install"
 alias aptse="apt search"
 alias aptup="apt update && apt upgrade"
+alias aptup2="apt update && apt full-upgrade"
 alias aptrm="apt remove"
+alias aptfix="apt-get update –fix-missing; dpkg –configure -a"
+
+install-micro() {
+  cd "$HOME/bin"
+  curl https://getmic.ro | bash
+}
+
+init-ssh() {
+  touch ~/.ssh/config
+}
+
+init-go() {
+  mkdir -p ~/go
+}
+
+install-omz-plugins() {
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+}
