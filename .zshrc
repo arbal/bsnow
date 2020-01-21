@@ -147,6 +147,16 @@ historytop() {
   history | awk '{a[$2]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head "-$1"
 }
 
+alias wh="command -v"
+alias wha="which -a"
+
+catw() {
+  fpath=$(command -v "$1")
+  echo "$fpath"
+  echo
+  cat "$fpath"
+}
+
 alias hg="history | grep -i"
 alias eg="env | grep -i"
 alias sshg="cat ~/.ssh/config | grep -i"
@@ -184,8 +194,15 @@ alias aptrm="apt remove"
 alias aptfix="apt-get update –fix-missing; dpkg –configure -a"
 
 install-micro() {
-  cd "$HOME/bin"
+  mkdir -p ~/bin
+  cd ~/bin || echo "WARNING: unable to cd into ~/bin. Continuing anyway by installing 'micro' into current working directory..."
   curl https://getmic.ro | bash
+}
+
+install-omz-extras() {
+  git clone https://github.com/bhilburn/powerlevel9k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel9k
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 }
 
 init-ssh() {
@@ -194,9 +211,4 @@ init-ssh() {
 
 init-go() {
   mkdir -p ~/go
-}
-
-install-omz-plugins() {
-  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 }
